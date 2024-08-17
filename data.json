@@ -1,0 +1,44 @@
+{
+  "announcement": {
+    "text": "Hey there! - layered"
+  },
+  "maintenanceAlerts": [
+    {
+      "date": "2021-01-16T12:00:00Z",
+      "message": "",
+      "title": "Upgrades to US 1 on July 31st"
+    }
+  ],
+  "sections": {
+    "announcementBar": false,
+    "maintenanceAlerts": true,
+    "statusUpdates": true
+  },
+  "services": {
+    "Example 1": {
+      "Custom branded bot": "Operational",
+      "Free bot": "Operational",
+      "Website": "Operational"
+    },
+    "Example 2": {
+      "Content Delivery Network": "Operational",
+      "Development": "Operational",
+      "Production": "Operational"
+    },
+    "Example 3": {
+      "CDN provider": "Operational",
+      "Code editing": "Operational",
+      "DNS management": "Operational",
+      "Git management": "Operational",
+      "Hosting providers": "Operational"
+    }
+  },
+  "statusUpdates": [
+    {
+      "color": "#7a54f8",
+      "date": "2024-08-10T09:00:00Z",
+      "message": "We like playing uno... and developing software",
+      "title": "This is a demo site!"
+    }
+  ]
+}
