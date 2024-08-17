@@ -1,6 +1,6 @@
 [![layeredy](https://cdn.layeredy.com/uptimematrix/wordmark.png)](https://uptimematrix.com)
 
-# Status-page for UptimeMatrix
+# Status-page for UptimeMatrix (v-2.4.5)
 This is the status-page for UptimeMatrix, a uptime monitoring software developed by [Layeredy](https://layeredy.com)
 
 Feel free to use this site as a template or to suggest improvements. 
