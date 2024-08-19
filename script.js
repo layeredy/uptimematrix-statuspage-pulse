@@ -85,7 +85,7 @@ function updateOverallStatus(services) {
     let statusText = 'All systems operational';
     let statusIcon = '✓'; // Checkmark for operational status
     if (overallStatus === 'Degraded') {
-        statusText = 'Some systems experiencing issues';
+        statusText = 'Some systems may be experiencing issues';
         statusIcon = '!'; // Exclamation mark for degraded status
     } else if (overallStatus === 'Issue') {
         statusText = 'Major outage detected';
