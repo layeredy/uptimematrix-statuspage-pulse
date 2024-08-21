@@ -21,7 +21,12 @@ function getCookie(name) {
 
 document.addEventListener('DOMContentLoaded', () => {
     fetch('data.json')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Data file not found');
+            }
+            return response.json();
+        })
         .then(data => {
             if (data.sections.announcementBar) updateAnnouncementBar(data.announcement);
             updateOverallStatus(data.services);
@@ -29,7 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (data.sections.maintenanceAlerts) updateMaintenanceAlerts(data.maintenanceAlerts);
             if (data.sections.statusUpdates) updateStatusUpdates(data.statusUpdates);
         })
-        .catch(error => console.error('Error loading config:', error));
+        .catch(error => {
+            console.error('UptimeMatrix error:', error.message);
+            displayErrorMessage();
+        });
 
     const themeToggle = document.getElementById('theme-toggle');
     const body = document.body;
@@ -45,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateThemeIcon();
         setCookie('theme', body.classList.contains('light-mode') ? 'light' : 'dark', 365);
     });
-    
+
     function updateThemeIcon() {
         const icon = themeToggle.querySelector('i');
         if (body.classList.contains('light-mode')) {
@@ -60,6 +68,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize the correct icon on page load
     updateThemeIcon();
 });
+
+function displayErrorMessage() {
+    const body = document.body;
+    body.innerHTML = `
+        <div style="text-align: center; padding: 20px;">
+            <h1>Uh oh...</h1>
+            <p>Something went wrong while loading this page</p>
+            <p style="font-size: 0.8em;">Check your browser console for more</p>
+        </div>
+    `;
+}
 
 function updateAnnouncementBar(announcement) {
     const announcementBar = document.getElementById('announcement-bar');
