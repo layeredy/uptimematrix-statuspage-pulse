@@ -1,6 +1,6 @@
 {
   "announcement": {
-    "text": "Hey there! - layered"
+    "text": "This is not supported as of 2.4.5, kept in for backwards compatibility"
   },
   "maintenanceAlerts": [
     {
@@ -16,21 +16,18 @@
   },
   "services": {
     "Example 1": {
-      "Custom branded bot": "Operational",
-      "Free bot": "Operational",
-      "Website": "Operational"
+      "Example service 1": "Operational",
+      "Example service 2": "Operational",
+      "Example service 3": "Operational"
     },
     "Example 2": {
-      "Content Delivery Network": "Operational",
-      "Development": "Operational",
-      "Production": "Operational"
+      "Another example service 1": "Operational",
+      "Another example service 2": "Operational",
+      "Another example service 3": "Operational"
     },
     "Example 3": {
-      "CDN provider": "Operational",
-      "Code editing": "Operational",
-      "DNS management": "Operational",
-      "Git management": "Operational",
-      "Hosting providers": "Operational"
+      "Again another example service 1": "Operational",
+      "Again another example service 2": "Degraded"
     }
   },
   "statusUpdates": [
