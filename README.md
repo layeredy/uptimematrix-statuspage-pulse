@@ -1,14 +1,14 @@
 [![layeredy](https://cdn.layeredy.com/uptimematrix/wordmark.png)](https://uptimematrix.com)
 
-# Status-page for UptimeMatrix (v-2.4.6)
-This is the status-page for UptimeMatrix, a uptime monitoring software developed by [Layeredy](https://layeredy.com)
+# Pulse by UptimeMatrix
+This is the status-page template "Pulse" for UptimeMatrix, the uptime monitoring software developed by [Layeredy](https://layeredy.com)
 
 Feel free to use this site as a template or to suggest improvements. 
 
 ⚠️ The community/open-source version of our status page uses JSON, which is outdated and generally slower compared to the database version used on UptimeMatrix. This repository only receives UI/UX updates and does not include API or endpoint updates. Pull requests that propose changes to site control or management will not be merged.
 
 > [!NOTE]
-> This repository may not get some/all updates done on [UptimeMatrix](https://uptimematrix.com). 
+> This repository may not get some/all updates done on [UptimeMatrix](https://uptimematrix.com).
 
 ![layeredy](https://cdn.layeredy.com/github_images/statuspage-v-2-4-5.png)
 
