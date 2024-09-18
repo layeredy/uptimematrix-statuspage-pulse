@@ -28,11 +28,13 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.json();
         })
         .then(data => {
-            if (data.sections.announcementBar) updateAnnouncementBar(data.announcement);
-            updateOverallStatus(data.services);
+            if (data.sections && data.sections.announcementBar) updateAnnouncementBar(data.announcement);
+            updateOverallStatus(data.services, data);
             updateServices(data.services);
-            if (data.sections.maintenanceAlerts) updateMaintenanceAlerts(data.maintenanceAlerts);
-            if (data.sections.statusUpdates) updateStatusUpdates(data.statusUpdates);
+            if (data.sections && data.sections.maintenanceAlerts) updateMaintenanceAlerts(data.maintenanceAlerts);
+            if (data.sections && data.sections.statusUpdates) updateStatusUpdates(data.statusUpdates);
+
+            handleWhitelabel(data.Whitelabel);
         })
         .catch(error => {
             console.error('UptimeMatrix error:', error.message);
@@ -65,7 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Initialize the correct icon on page load
     updateThemeIcon();
 });
 
@@ -90,25 +91,58 @@ function updateAnnouncementBar(announcement) {
     }
 }
 
-function updateOverallStatus(services) {
+function updateOverallStatus(services, data) {
     const overallStatusElement = document.getElementById('overall-status');
-    const allStatuses = Object.values(services).flatMap(group => Object.values(group));
-    let overallStatus = 'Operational';
 
-    if (allStatuses.some(status => status === 'Issue')) {
-        overallStatus = 'Issue';
-    } else if (allStatuses.some(status => status === 'Degraded')) {
-        overallStatus = 'Degraded';
+    let isMaintenanceOngoing = false;
+    if (data.maintenanceAlerts && data.maintenanceAlerts.length > 0) {
+        const now = new Date();
+        data.maintenanceAlerts.forEach(alert => {
+            if (alert.start && alert.end) {
+                const startTime = new Date(alert.start);
+                const endTime = new Date(alert.end);
+                if (now >= startTime && now <= endTime) {
+                    isMaintenanceOngoing = true;
+                }
+            }
+        });
+    }
+
+    if (isMaintenanceOngoing) {
+        overallStatusElement.innerHTML = `
+            <div class="status-icon">//</div>
+            Undergoing maintenance
+        `;
+        overallStatusElement.className = 'status-maintenance';
+        return;
+    }
+
+    let overallStatus = 'Operational';
+    if (data.OverallStatus && data.OverallStatus !== 'NoOverride') {
+        overallStatus = data.OverallStatus;
+    } else {
+        const allStatuses = Object.values(services).flatMap(group => Object.values(group));
+        if (allStatuses.some(status => status === 'Issue')) {
+            overallStatus = 'Issue';
+        } else if (allStatuses.some(status => status === 'Degraded')) {
+            overallStatus = 'Degraded';
+        }
     }
 
     let statusText = 'All systems operational';
-    let statusIcon = '✓'; // Checkmark for operational status
+    let statusIcon = '✓';
     if (overallStatus === 'Degraded') {
         statusText = 'Some systems may be experiencing issues';
-        statusIcon = '!'; // Exclamation mark for degraded status
+        statusIcon = '!';
     } else if (overallStatus === 'Issue') {
         statusText = 'Major outage detected';
         statusIcon = '✕'; // Cross mark for issue status
+    } else if (overallStatus === 'Operational') {
+        statusText = 'All systems operational';
+        statusIcon = '✓';
+    } else {
+        statusText = overallStatus;
+        statusIcon = '?'; 
     }
 
     overallStatusElement.innerHTML = `
@@ -210,10 +244,19 @@ function createAlertElement(item, className) {
     title.textContent = item.title;
     element.appendChild(title);
 
-    const date = document.createElement('p');
-    date.className = 'date';
-    date.textContent = new Date(item.date).toLocaleString();
-    element.appendChild(date);
+    if (item.start && item.end) {
+        const date = document.createElement('p');
+        date.className = 'date';
+        const startTime = new Date(item.start).toLocaleString();
+        const endTime = new Date(item.end).toLocaleString();
+        date.textContent = `From ${startTime} to ${endTime}`;
+        element.appendChild(date);
+    } else if (item.date) {
+        const date = document.createElement('p');
+        date.className = 'date';
+        date.textContent = new Date(item.date).toLocaleString();
+        element.appendChild(date);
+    }
 
     const message = document.createElement('p');
     message.textContent = item.message;
@@ -230,5 +273,12 @@ function calculateGroupStatus(serviceGroup) {
         return 'Issue';
     } else {
         return 'Degraded';
+    }
+}
+
+function handleWhitelabel(isWhitelabel) {
+    const copyrightDiv = document.querySelector('.copyright');
+    if (copyrightDiv) {
+        copyrightDiv.style.display = isWhitelabel ? 'none' : 'block';
     }
 }

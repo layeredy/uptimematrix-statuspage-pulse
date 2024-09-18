@@ -1,18 +1,19 @@
 {
-  "announcement": {
-    "text": "This is not supported as of 2.4.5, kept in for backwards compatibility"
-  },
+  "Whitelabel": false,
+  "RandomOperationalMessage": true,
+  "OverallStatus": "NoOverride",
   "maintenanceAlerts": [
     {
-      "date": "2021-01-16T12:00:00Z",
-      "message": "",
-      "title": "Upgrades to US 1 on July 31st"
+      "start": "2024-09-17T12:00:00Z",
+      "end": "2024-09-18T12:00:00Z",
+      "message": "Demo maintenance (hide by disabling maintenanceAlerts in data.json!)",
+      "title": "Demo"
     }
   ],
   "sections": {
-    "announcementBar": false,
     "maintenanceAlerts": true,
-    "statusUpdates": true
+    "statusUpdates": true,
+    "announcementBar": false
   },
   "services": {
     "Example 1": {
@@ -27,7 +28,7 @@
     },
     "Example 3": {
       "Again another example service 1": "Operational",
-      "Again another example service 2": "Degraded"
+      "Again another example service 2": "Operational"
     }
   },
   "statusUpdates": [

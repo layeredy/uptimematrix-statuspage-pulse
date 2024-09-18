@@ -63,11 +63,14 @@ h1 {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-#maintenance-alerts, #status-updates, #services {
+#maintenance-alerts,
+#status-updates,
+#services {
   margin-bottom: var(--spacing-md);
 }
 
-.alert, .update {
+.alert,
+.update {
   background-color: var(--card-bg);
   border-radius: var(--border-radius);
   padding: var(--spacing-md);
@@ -76,7 +79,8 @@ h1 {
   transition: var(--transition);
 }
 
-.alert:hover, .update:hover {
+.alert:hover,
+.update:hover {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   transform: translateY(-2px);
 }
@@ -89,7 +93,8 @@ h1 {
   border-left: 4px solid var(--status-update-color, var(--success-color));
 }
 
-.alert h3, .update h3 {
+.alert h3,
+.update h3 {
   margin-top: 0;
   font-size: 1.2em;
 }
@@ -225,28 +230,28 @@ h1 {
 }
 
 #theme-toggle-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: var(--spacing-md);
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--spacing-md);
 }
 
 #theme-toggle {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: var(--text-color);
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    font-size: 18px;
-    cursor: pointer;
-    transition: var(--transition);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-color);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #theme-toggle:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .copyright {
@@ -284,6 +289,8 @@ body.light-mode {
   --dropdown-bg: #ffffff;
   --card-bg: #ffffff;
   --separator-color: rgba(0, 0, 0, 0.1);
+  --overall-status-bg: var(--card-bg);
+  --overall-status-text: var(--text-color);
 }
 
 body.light-mode #overall-status {
@@ -313,11 +320,11 @@ body.light-mode .date {
 }
 
 body.light-mode #theme-toggle {
-    background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 body.light-mode #theme-toggle:hover {
-    background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 600px) {
