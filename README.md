@@ -3,6 +3,9 @@
 # Pulse by UptimeMatrix
 This is the status-page template "Pulse" for UptimeMatrix, the uptime monitoring software developed by [Layeredy](https://layeredy.com)
 
+> [!IMPORTANT]
+> **UptimeMatrix is now in early testing! Request access [here](https://forms.gle/FSQK8jjcJKxSaMkU8) or view our feed [here](https://feed.uptimematrix.com)**
+
 Feel free to use this site as a template or to suggest improvements. 
 
 ⚠️ The community/open-source version of our status page uses JSON, which is outdated and generally slower compared to the database version used on UptimeMatrix. This repository only receives UI/UX updates and does not include API or endpoint updates. Pull requests that propose changes to site control or management will not be merged.
