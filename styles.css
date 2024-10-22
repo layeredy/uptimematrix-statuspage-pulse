@@ -5,6 +5,8 @@
   --alert-color: #cf6679;
   --success-color: #4caf50;
   --warning-color: #ff9800;
+  --slow-color: #ffeb3b;
+  --maintenance-color: #2196f3;
   --dropdown-bg: #1e1e1e;
   --card-bg: #1e1e1e;
   --border-radius: 16px;
@@ -189,6 +191,14 @@ h1 {
   background-color: var(--alert-color);
 }
 
+.status-slow {
+  background-color: var(--slow-color);
+}
+
+.status-maintenance {
+  background-color: var(--maintenance-color);
+}
+
 #overall-status {
   background-color: var(--overall-status-bg);
   color: var(--overall-status-text);
@@ -226,6 +236,16 @@ h1 {
 
 .status-issue .status-icon {
   background-color: var(--alert-color);
+  color: white;
+}
+
+.status-slow .status-icon {
+  background-color: var(--slow-color);
+  color: black;
+}
+
+.status-maintenance .status-icon {
+  background-color: var(--maintenance-color);
   color: white;
 }
 
@@ -325,6 +345,14 @@ body.light-mode #theme-toggle {
 
 body.light-mode #theme-toggle:hover {
   background-color: rgba(0, 0, 0, 0.2);
+}
+
+body.light-mode .status-slow {
+  background-color: #fff176; 
+}
+
+body.light-mode .status-maintenance {
+  background-color: #64b5f6; 
 }
 
 @media (max-width: 600px) {

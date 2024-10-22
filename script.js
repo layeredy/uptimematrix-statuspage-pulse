@@ -1,3 +1,8 @@
+const apiUrl = "data.json"; 
+// ^^ Set this to your UptimeMatrix API URL, you can find this either at https://app.uptimematrix.com or if you are self-hosting, it will just be data.json ^^
+// Acceptable status' -- Operational, Degraded, Issue, Slow, Maintenance | If you need extras, you will need to edit this file and the styles file.
+// You do not need to modify anything below this line. See styles.css for styling.
+
 function setCookie(name, value, days) {
     let expires = "";
     if (days) {
@@ -23,9 +28,9 @@ function getCookie(name) {
 document.addEventListener("DOMContentLoaded", () => {
     const startTime = performance.now();
 
-    showLoadingAnimation(); 
+    showLoadingAnimation();
 
-    fetch("data.json")
+    fetch(apiUrl)
         .then((response) => {
             if (!response.ok) {
                 throw new Error(
@@ -50,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             handleWhitelabel(data.Whitelabel);
 
-            hideLoadingAnimation(); 
+            hideLoadingAnimation();
 
             const endTime = performance.now();
             const loadTime = (endTime - startTime).toFixed(2);
@@ -60,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .catch((error) => {
             console.error("UptimeMatrix load failure!:", error.message);
-            hideLoadingAnimation(); 
+            hideLoadingAnimation();
             displayErrorMessage();
             console.error(
                 "--- What should I do? --- \n\n\n If you are a user: \n\n Please try again in a few minutes or check out our network status at status.layeredy.com \n\n\n If you are the site owner: \n\n Try re-checking in a few minutes or check your monitor configuration at app.uptimematrix.com if you are using a external database."
@@ -153,28 +158,6 @@ function updateAnnouncementBar(announcement) {
 function updateOverallStatus(services, RandomOperationalMessage, data) {
     const overallStatusElement = document.getElementById("overall-status");
 
-    let isMaintenanceOngoing = false;
-    if (data.maintenanceAlerts && data.maintenanceAlerts.length > 0) {
-        const now = new Date();
-        data.maintenanceAlerts.forEach((alert) => {
-            if (alert.start && alert.end) {
-                const startTime = new Date(alert.start);
-                const endTime = new Date(alert.end);
-                if (now >= startTime && now <= endTime) {
-                    isMaintenanceOngoing = true;
-                }
-            }
-        });
-    }
-    if (isMaintenanceOngoing) {
-        overallStatusElement.innerHTML = `
-            <div class="status-icon">//</div>
-            Undergoing maintenance
-        `;
-        overallStatusElement.className = "status-maintenance";
-        return;
-    }
-
     let overallStatus = "Operational";
     if (data.OverallStatus && data.OverallStatus !== "NoOverride") {
         overallStatus = data.OverallStatus;
@@ -182,33 +165,50 @@ function updateOverallStatus(services, RandomOperationalMessage, data) {
         const allStatuses = Object.values(services).flatMap((group) =>
             Object.values(group)
         );
-        if (allStatuses.some((status) => status === "Issue")) {
+        if (allStatuses.some((status) => status === "Maintenance")) {
+            overallStatus = "Maintenance";
+        } else if (allStatuses.some((status) => status === "Issue")) {
             overallStatus = "Issue";
+        } else if (allStatuses.some((status) => status === "Slow")) {
+            overallStatus = "Slow";
         } else if (allStatuses.some((status) => status === "Degraded")) {
             overallStatus = "Degraded";
+        } else {
+            overallStatus = "Operational";
         }
     }
 
-    let statusText = "All systems operational";
-    let statusIcon = "✓";
+    let statusText = "";
+    let statusIcon = "";
 
-    if (overallStatus === "Operational" && RandomOperationalMessage) {
-        const successMessages = [
-            "All systems are operational",
-            "Systems are functioning normally",
-            "Services are running smoothly",
-            "All systems are performing as expected",
-            "All platforms are operational and responsive",
-            "All systems are live",
-        ];
-        statusText =
-            successMessages[Math.floor(Math.random() * successMessages.length)];
-    } else if (overallStatus === "Degraded") {
-        statusText = "Some systems may be experiencing issues";
-        statusIcon = "!";
+    if (overallStatus === "Maintenance") {
+        statusText = "Undergoing maintenance";
+        statusIcon = "//";
     } else if (overallStatus === "Issue") {
         statusText = "Major outage detected";
         statusIcon = "✕";
+    } else if (overallStatus === "Slow") {
+        statusText = "Some services may be slow";
+        statusIcon = "…";
+    } else if (overallStatus === "Degraded") {
+        statusText = "Some systems may be experiencing issues";
+        statusIcon = "!";
+    } else if (overallStatus === "Operational") {
+        if (RandomOperationalMessage) {
+            const successMessages = [
+                "All systems are operational",
+                "Systems are functioning normally",
+                "Services are running smoothly",
+                "All systems are performing as expected",
+                "All platforms are operational and responsive",
+                "All systems are live",
+            ];
+            statusText =
+                successMessages[Math.floor(Math.random() * successMessages.length)];
+        } else {
+            statusText = "All systems operational";
+        }
+        statusIcon = "✓";
     } else {
         statusText = overallStatus;
         statusIcon = "?";
@@ -352,9 +352,15 @@ function calculateGroupStatus(serviceGroup) {
     const statuses = Object.values(serviceGroup);
     if (statuses.every((status) => status === "Operational")) {
         return "Operational";
+    } else if (statuses.some((status) => status === "Maintenance")) {
+        return "Maintenance";
     } else if (statuses.some((status) => status === "Issue")) {
         return "Issue";
-    } else {
+    } else if (statuses.some((status) => status === "Slow")) {
+        return "Slow";
+    } else if (statuses.some((status) => status === "Degraded")) {
         return "Degraded";
+    } else {
+        return "Unknown";
     }
 }
