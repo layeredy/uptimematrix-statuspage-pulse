@@ -206,7 +206,7 @@ function updateOverallStatus(services, RandomOperationalMessage, data) {
             statusText =
                 successMessages[Math.floor(Math.random() * successMessages.length)];
         } else {
-            statusText = "All systems operational";
+            statusText = "All systems are operational";
         }
         statusIcon = "✓";
     } else {
