@@ -63,6 +63,7 @@ h1 {
   padding: var(--spacing-xs);
   font-weight: 600;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: var(--border-radius);
 }
 
 #maintenance-alerts,
@@ -352,7 +353,7 @@ body.light-mode .status-slow {
 }
 
 body.light-mode .status-maintenance {
-  background-color: #64b5f6; 
+  background-color: #64b5f6;
 }
 
 @media (max-width: 600px) {

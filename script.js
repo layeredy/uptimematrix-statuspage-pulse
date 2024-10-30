@@ -40,8 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return response.json();
         })
         .then((data) => {
-            if (data.sections.announcementBar)
-                updateAnnouncementBar(data.announcement);
+            updateAnnouncementBar(data.sections.announcementBar, data.announcement);
             updateOverallStatus(
                 data.services,
                 data.RandomOperationalMessage,
@@ -145,9 +144,9 @@ function displayErrorMessage() {
     `;
 }
 
-function updateAnnouncementBar(announcement) {
+function updateAnnouncementBar(isEnabled, announcement) {
     const announcementBar = document.getElementById("announcement-bar");
-    if (announcement && announcement.text) {
+    if (isEnabled && announcement && announcement.text) {
         announcementBar.textContent = announcement.text;
         announcementBar.style.display = "block";
     } else {
@@ -206,7 +205,7 @@ function updateOverallStatus(services, RandomOperationalMessage, data) {
             statusText =
                 successMessages[Math.floor(Math.random() * successMessages.length)];
         } else {
-            statusText = "All systems are operational";
+            statusText = "All systems operational";
         }
         statusIcon = "✓";
     } else {

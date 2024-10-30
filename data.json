@@ -2,18 +2,21 @@
   "Whitelabel": false,
   "RandomOperationalMessage": true,
   "OverallStatus": "NoOverride",
+  "announcement": {
+    "text": "This is a demo announcement. You can customize this message in data.json!"
+  },
   "maintenanceAlerts": [
     {
       "start": "2024-09-17T12:00:00Z",
       "end": "2024-09-18T12:00:00Z",
-      "message": "Demo maintenance (hide by disabling maintenanceAlerts in data.json!)",
-      "title": "Demo"
+      "message": "Demo maintenance (hide by disabling maintenanceAlerts in data.json).",
+      "title": "Demo Maintenance"
     }
   ],
   "sections": {
     "maintenanceAlerts": true,
     "statusUpdates": true,
-    "announcementBar": false
+    "announcementBar": true
   },
   "services": {
     "Example 1": {
@@ -35,7 +38,7 @@
     {
       "color": "#7a54f8",
       "date": "2024-08-10T09:00:00Z",
-      "message": "We like playing uno... and developing software",
+      "message": "We like playing Uno... and developing software!",
       "title": "This is a demo site!"
     }
   ]
