@@ -1,6 +1,6 @@
 const apiUrl = "data.json"; 
 // ^^ Set this to your UptimeMatrix API URL, you can find this either at https://app.uptimematrix.com or if you are self-hosting, it will just be data.json ^^
-// Acceptable statuses: Operational, Degraded, Issue, Slow, Maintenance. If you need extras, you will need to edit this file and the styles file.
+// Acceptable status' -- Operational, Degraded, Issue, Slow, Maintenance | If you need extras, you will need to edit this file and the styles file.
 // You do not need to modify anything below this line. See styles.css for styling.
 
 function setCookie(name, value, days) {
@@ -40,7 +40,8 @@ document.addEventListener("DOMContentLoaded", () => {
             return response.json();
         })
         .then((data) => {
-            updateAnnouncementBar(data.sections.announcementBar, data.announcement);
+            if (data.sections.announcementBar)
+                updateAnnouncementBar(data.announcement);
             updateOverallStatus(
                 data.services,
                 data.RandomOperationalMessage,
@@ -144,9 +145,9 @@ function displayErrorMessage() {
     `;
 }
 
-function updateAnnouncementBar(isEnabled, announcement) {
+function updateAnnouncementBar(announcement) {
     const announcementBar = document.getElementById("announcement-bar");
-    if (isEnabled && announcement && announcement.text) {
+    if (announcement && announcement.text) {
         announcementBar.textContent = announcement.text;
         announcementBar.style.display = "block";
     } else {
@@ -161,8 +162,8 @@ function updateOverallStatus(services, RandomOperationalMessage, data) {
     if (data.OverallStatus && data.OverallStatus !== "NoOverride") {
         overallStatus = data.OverallStatus;
     } else {
-        const allStatuses = Object.values(services).flatMap((group) =>
-            Object.values(group)
+        const allStatuses = services.flatMap(category =>
+            category.services.map(service => service.status)
         );
         if (allStatuses.some((status) => status === "Maintenance")) {
             overallStatus = "Maintenance";
@@ -205,7 +206,7 @@ function updateOverallStatus(services, RandomOperationalMessage, data) {
             statusText =
                 successMessages[Math.floor(Math.random() * successMessages.length)];
         } else {
-            statusText = "All systems operational";
+            statusText = "All systems are operational";
         }
         statusIcon = "✓";
     } else {
@@ -233,7 +234,10 @@ function updateServices(services) {
     const servicesContainer = document.getElementById("services");
     servicesContainer.innerHTML = "<h2>Services</h2>";
 
-    Object.entries(services).forEach(([groupName, serviceGroup]) => {
+    services.forEach((category) => {
+        const groupName = category.categoryName;
+        const serviceGroup = category.services;
+
         const groupElement = document.createElement("div");
         groupElement.className = "service-group";
 
@@ -250,7 +254,10 @@ function updateServices(services) {
         const serviceList = document.createElement("div");
         serviceList.className = "service-list";
 
-        Object.entries(serviceGroup).forEach(([serviceName, status]) => {
+        serviceGroup.forEach((service) => {
+            const serviceName = service.serviceName;
+            const status = service.status;
+
             const serviceItem = document.createElement("div");
             serviceItem.className = "service-item";
 
@@ -348,7 +355,7 @@ function createAlertElement(item, className) {
 }
 
 function calculateGroupStatus(serviceGroup) {
-    const statuses = Object.values(serviceGroup);
+    const statuses = serviceGroup.map(service => service.status);
     if (statuses.every((status) => status === "Operational")) {
         return "Operational";
     } else if (statuses.some((status) => status === "Maintenance")) {
