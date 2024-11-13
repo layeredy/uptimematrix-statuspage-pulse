@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .then((response) => {
             if (!response.ok) {
                 throw new Error(
-                    "Database is unreachable/may be overloaded. \n\n\n\n -- No need to panic! -- \n--- What should I do? --- \n\n\n If you are a user: \n\n Please try again in a few minutes or check out our network status at status.layeredy.com \n\n\n If you are the site owner: \n\n Try re-checking in a few minutes or check your monitor configuration at app.uptimematrix.com if you are using a external database."
+                    "Database is unreachable/may be overloaded. \n\n\n\n -- No need to panic! -- \n--- What should I do? --- \n\n\n If you are a user: \n\n Please try again in a few minutes or check out our network status at status.uptimematrix.com \n\n\n If you are the site owner: \n\n Try re-checking in a few minutes or check your monitor configuration at app.uptimematrix.com if you are using a external database."
                 );
             }
             return response.json();
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
             hideLoadingAnimation();
             displayErrorMessage();
             console.error(
-                "--- What should I do? --- \n\n\n If you are a user: \n\n Please try again in a few minutes or check out our network status at status.layeredy.com \n\n\n If you are the site owner: \n\n Try re-checking in a few minutes or check your monitor configuration at app.uptimematrix.com if you are using a external database."
+                "--- What should I do? --- \n\n\n If you are a user: \n\n Please try again in a few minutes or check out our network status at status.uptimematrix.com \n\n\n If you are the site owner: \n\n Try re-checking in a few minutes or check your monitor configuration at app.uptimematrix.com if you are using a external database."
             );
         });
 
@@ -138,7 +138,7 @@ function displayErrorMessage() {
             <p style="font-size: 0.8em;">Check if UptimeMatrix is having issues on our status page</p>
             <p style="font-size: 0.6em;">This error has been reported to UptimeMatrix and we are looking into it.</p>
             <br /> 
-            <button onclick="window.location.href='https://status.layeredy.com'" style="padding: 10px 20px; background-color: #0275d8; color: #fff; border: none; border-radius: 5px; cursor: pointer;">
+            <button onclick="window.location.href='https://status.uptimematrix.com'" style="padding: 10px 20px; background-color: #0275d8; color: #fff; border: none; border-radius: 5px; cursor: pointer;">
                 UptimeMatrix status
             </button>
         </div>
