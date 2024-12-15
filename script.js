@@ -40,8 +40,12 @@ document.addEventListener("DOMContentLoaded", () => {
             return response.json();
         })
         .then((data) => {
-            if (data.sections.announcementBar)
+            if (data.sections.announcementBar) {
                 updateAnnouncementBar(data.announcement);
+            } else {
+                document.getElementById("announcement-bar").style.display = "none";
+            }
+
             updateOverallStatus(
                 data.services,
                 data.RandomOperationalMessage,
