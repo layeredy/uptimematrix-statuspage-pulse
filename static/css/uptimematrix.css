@@ -1,25 +1,4 @@
-:root {
-  --bg-color: #0f0f0f;
-  --text-color: #ffffff;
-  --accent-color: #6200ee;
-  --alert-color: #cf6679;
-  --success-color: #4caf50;
-  --warning-color: #ff9800;
-  --slow-color: #ffeb3b;
-  --maintenance-color: #2196f3;
-  --dropdown-bg: #1e1e1e;
-  --card-bg: #1e1e1e;
-  --border-radius: 16px;
-  --transition: all 0.3s ease;
-  --spacing-xs: 8px;
-  --spacing-sm: 12px;
-  --spacing-md: 16px;
-  --spacing-lg: 24px;
-  --overall-status-bg: #1e1e1e;
-  --overall-status-text: #ffffff;
-  --separator-color: rgba(255, 255, 255, 0.1);
-}
-
+  /*  We recommend against modifying anything below this, use custom.css to add your own CSS and configuration/style-configuration.css for color mods  */
 body {
   font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: var(--bg-color);

@@ -1,7 +1,4 @@
-const apiUrl = "data.json"; 
-// ^^ Set this to your UptimeMatrix API URL, you can find this either at https://app.uptimematrix.com or if you are self-hosting, it will just be data.json ^^
-// Acceptable status' -- Operational, Degraded, Issue, Slow, Maintenance | If you need extras, you will need to edit this file and the styles file.
-// You do not need to modify anything below this line. See styles.css for styling.
+// Do not modify this file, below; future versions will override this, use custom.js for your custom code.
 
 function setCookie(name, value, days) {
     let expires = "";
